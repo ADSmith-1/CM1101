@@ -17,7 +17,7 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    pass # The pass statement does nothing. Replace it with the body of your function.
+    return text.translate(None, string.punctuation) ###
     
     
 def remove_spaces(text):
@@ -36,7 +36,7 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    pass
+    return text.trim()
 
 
 def normalise_input(user_input):
@@ -51,7 +51,12 @@ def normalise_input(user_input):
     >>> normalise_input("HELP!!!!!!!")
     'help'
     """
-    pass
+    
+    remove_punct(user_input)
+    remove_spaces(user_input)
+    user_input.lower()
+    
+    return user_input()
 
     
 def display_room(room):
@@ -155,7 +160,6 @@ def is_valid_exit(exits, user_input):
     True
     """
     if user_input in exits:
-        print("working")
         return True
     else:
         return False
