@@ -17,7 +17,13 @@ def remove_punct(text):
     >>> remove_punct(",go!So.?uTh")
     'goSouTh'
     """
-    return text.translate(None, string.punctuation) ###
+    new_text = ""
+
+    for char in text:
+        if (char.isalpha() == True) or (char == " "):
+            new_text = new_text + char
+
+    return new_text
     
     
 def remove_spaces(text):
@@ -36,7 +42,7 @@ def remove_spaces(text):
     >>> remove_spaces("   ")
     ''
     """
-    return text.trim()
+    return text.strip()
 
 
 def normalise_input(user_input):
@@ -52,11 +58,10 @@ def normalise_input(user_input):
     'help'
     """
     
-    remove_punct(user_input)
-    remove_spaces(user_input)
-    user_input.lower()
+    user_input = remove_punct(user_input)
+    user_input = remove_spaces(user_input)
     
-    return user_input()
+    return user_input.lower()
 
     
 def display_room(room):
@@ -98,7 +103,9 @@ def exit_leads_to(exits, direction):
     >>> exit_leads_to(rooms["Tutor"]["exits"], "west")
     'Reception'
     """
-    return exits[direction]["name"]
+    direction = "{}".format(direction)
+    new_room = "{}".format(exits[direction])
+    return rooms[new_room]["name"]
 
 def print_menu_line(direction, leads_to):
     """This function prints a line of a menu of exits. It takes two strings: a
@@ -184,7 +191,7 @@ def menu(exits):
         # Read player's input
         choice = input()
         # Normalise the input
-        
+        choice = normalise_input(choice)
         # Check if the input makes sense (is valid exit)
             # If so, return the player's choice
         if is_valid_exit(exits, choice) == True:
@@ -205,7 +212,8 @@ def move(exits, direction):
     False
     """
     if direction != "":
-        return exits[direction]
+        direction = "{}".format(direction)
+        return rooms[exits[direction]]
 
 
 # This is the entry point of our program
