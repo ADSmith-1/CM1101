@@ -103,9 +103,8 @@ def exit_leads_to(exits, direction):
     >>> exit_leads_to(rooms["Tutor"]["exits"], "west")
     'Reception'
     """
-    direction = "{}".format(direction)
-    new_room = "{}".format(exits[direction])
-    return rooms[new_room]["name"]
+    
+    return rooms[exits[direction]]["name"]
 
 def print_menu_line(direction, leads_to):
     """This function prints a line of a menu of exits. It takes two strings: a
@@ -166,10 +165,7 @@ def is_valid_exit(exits, user_input):
     >>> is_valid_exit(rooms["Parking"]["exits"], "east")
     True
     """
-    if user_input in exits:
-        return True
-    else:
-        return False
+    return user_input in exits
 
 
 def menu(exits):
@@ -194,8 +190,9 @@ def menu(exits):
         choice = normalise_input(choice)
         # Check if the input makes sense (is valid exit)
             # If so, return the player's choice
-        if is_valid_exit(exits, choice) == True:
-            return choice
+        #if is_valid_exit(exits, choice) == True:
+        #    return choice
+        return choice
 
 
 
@@ -211,9 +208,7 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    if direction != "":
-        direction = "{}".format(direction)
-        return rooms[exits[direction]]
+    return rooms[exits[direction]]
 
 
 # This is the entry point of our program
